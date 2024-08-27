@@ -17,36 +17,37 @@ from telegram.ext import (
 )
 
 import settings
-from bot import consts, conversations
+from bot import consts
 from bot.context import CustomContext
+from bot.conversations import admin as admin_handlers, user as user_handlers
 
 logger = logging.getLogger(__name__)
 
 CONVS = {
     # User
-    consts.STATE_HOME: conversations.home_handler,
-    consts.STATE_REQUEST_COURSE: conversations.request_course_handler,
-    consts.STATE_CONVERT_COURSE: conversations.convert_course_handler,
-    consts.STATE_SUMMER_REQUEST_GET_NAME: conversations.summer_request_get_name_handler,
+    consts.STATE_HOME: user_handlers.home_handler,
+    consts.STATE_REQUEST_COURSE: user_handlers.request_course_handler,
+    consts.STATE_CONVERT_COURSE: user_handlers.convert_course_handler,
+    consts.STATE_SUMMER_REQUEST_GET_NAME: user_handlers.summer_request_get_name_handler,
     # Admin
-    consts.STATE_ADMIN: conversations.admin_panel_handler,
-    consts.STATE_ADMIN_GET_FILE: conversations.admin_send_file_handler,
-    consts.STATE_ADMIN_FILE_ID: conversations.admin_send_file_id_handler,
-    consts.STATE_ADMIN_CLEAN_REQ: conversations.admin_clean_request_list_handler,
-    consts.STATE_ADMIN_SEND_MSG: conversations.admin_send_message_handler,
-    consts.STATE_ADMIN_SUMMER_REQUEST: conversations.admin_send_summer_request_handler,
-    consts.STATE_ADMIN_CLEAN_SUMMER_REQUEST: conversations.admin_clean_summer_request_list_handler,
-    consts.STATE_ADMIN_SEND_MSG_TO_ALL: conversations.admin_send_message_to_all_handler,
+    consts.STATE_ADMIN: admin_handlers.panel_handler,
+    consts.STATE_ADMIN_GET_FILE: admin_handlers.get_requests_file_handler,
+    consts.STATE_ADMIN_FILE_ID: admin_handlers.get_file_id_handler,
+    consts.STATE_ADMIN_CLEAN_REQ: admin_handlers.clean_request_list_handler,
+    consts.STATE_ADMIN_SEND_MSG: admin_handlers.send_message_to_user_handler,
+    consts.STATE_ADMIN_SUMMER_REQUEST: admin_handlers.get_summer_requests_file_handler,
+    consts.STATE_ADMIN_CLEAN_SUMMER_REQUEST: admin_handlers.clean_summer_request_list_handler,
+    consts.STATE_ADMIN_SEND_MSG_TO_ALL: admin_handlers.send_message_to_all_handler,
 }
 
 INLINE_CONVS = {
-    consts.STATE_SUMMER_REQUEST: conversations.summer_request_handler,
-    consts.STATE_SUMMER_REQUEST_GET_NAME: conversations.summer_request_get_name_handler,
+    consts.STATE_SUMMER_REQUEST: user_handlers.summer_request_handler,
+    consts.STATE_SUMMER_REQUEST_GET_NAME: user_handlers.summer_request_get_name_handler,
 }
 
 CONVS_DOC = {
     # Admin
-    consts.STATE_ADMIN_FILE_ID: conversations.admin_send_file_id_handler,
+    consts.STATE_ADMIN_FILE_ID: admin_handlers.get_file_id_handler,
 }
 
 
@@ -118,8 +119,8 @@ def run():
     app.add_handler(TypeHandler(Update, track_users), group=-1)
     app.add_handlers(
         [
-            CommandHandler("start", conversations.start_command_handler),
-            CommandHandler("panel", conversations.admin_start_command_handler, filters=admin_filter),
+            CommandHandler("start", user_handlers.start_command_handler),
+            CommandHandler("panel", admin_handlers.start_command_handler, filters=admin_filter),
             MessageHandler(filters.TEXT, state_handler),
             MessageHandler(filters.Document.ALL, document_state_handler),
             CallbackQueryHandler(inline_state_handler),
