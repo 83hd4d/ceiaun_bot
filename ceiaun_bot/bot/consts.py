@@ -54,6 +54,9 @@ SUMMER_REQUEST_COURSES = [
     SummerCourse(4, "ریاضیات گسسته"),
     SummerCourse(5, "کارگاه کامپیوتر"),
     SummerCourse(6, "مدار الکتریکی"),
+    SummerCourse(7, "ساختمان داده"),
+    SummerCourse(8, "آز ریزپردازنده"),
+    SummerCourse(9, "آز مدار منطقی و معماری"),
 ]
 
 ACCEPT_OK = "✅"
