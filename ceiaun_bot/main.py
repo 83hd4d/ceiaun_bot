@@ -41,8 +41,11 @@ CONVS = {
 }
 
 INLINE_CONVS = {
+    # User
     consts.STATE_SUMMER_REQUEST: user_handlers.summer_request_handler,
     consts.STATE_SUMMER_REQUEST_GET_NAME: user_handlers.summer_request_get_name_handler,
+    # Admin
+    consts.STATE_ADMIN_STATUS: admin_handlers.status_handler,
 }
 
 CONVS_DOC = {

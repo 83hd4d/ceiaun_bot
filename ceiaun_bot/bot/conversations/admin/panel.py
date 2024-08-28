@@ -1,7 +1,7 @@
 from telegram import Update
 
 import settings
-from bot import consts, keyboards, messages
+from bot import consts, inline_keyboards, keyboards, messages
 from bot.context import CustomContext
 
 
@@ -94,3 +94,13 @@ async def panel_handler(update: Update, context: CustomContext):
         )
 
         return consts.STATE_ADMIN_SEND_MSG_TO_ALL
+
+    if text == keyboards.ADMIN_STATUS:
+        result = await update.message.reply_text(
+            text=messages.ADMIN_STATUS,
+            reply_markup=inline_keyboards.generate_admin_status_inline_keyboard(context.flags),
+            quote=True,
+        )
+        context.user_last_inline_message = result.message_id
+
+        return consts.STATE_ADMIN_STATUS

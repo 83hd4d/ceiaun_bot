@@ -2,7 +2,6 @@ import logging
 
 from telegram import Update
 
-import settings
 from bot import keyboards, messages
 from bot.context import CustomContext
 from utils import process_course_request
@@ -18,7 +17,7 @@ async def request_course_handler(update: Update, context: CustomContext):
     user_id = update.effective_user.id
     username = update.effective_user.username
 
-    if text == keyboards.BACK or settings.REQUEST_CLOSE:
+    if text == keyboards.BACK or not context.flags["REQUEST_OPEN"]:
         return await back_home_handler(update, context)
 
     try:

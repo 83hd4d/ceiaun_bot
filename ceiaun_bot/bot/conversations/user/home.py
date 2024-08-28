@@ -55,7 +55,7 @@ async def home_handler(update: Update, context: CustomContext):
 
     # students requests
     if text == keyboards.HOME_COURSE_REQUEST:
-        if settings.REQUEST_CLOSE:
+        if not context.flags["REQUEST_OPEN"]:
             await update.message.reply_text(text=messages.REQ_CLOSE, reply_markup=keyboards.HOME_KEYBOARD, quote=True)
 
             return None
@@ -70,9 +70,11 @@ async def home_handler(update: Update, context: CustomContext):
         return consts.STATE_REQUEST_COURSE
 
     if text == keyboards.HOME_SUMMER_REQUEST:
-        if settings.SUMMER_REQUEST_CLOSE:
+        if not context.flags["REQUEST_SUMMER_OPEN"]:
             await update.message.reply_text(
-                text=messages.SUMMER_REQ_CLOSED, reply_markup=keyboards.HOME_KEYBOARD, quote=True
+                text=messages.SUMMER_REQ_CLOSED,
+                reply_markup=keyboards.HOME_KEYBOARD,
+                quote=True,
             )
 
             return None

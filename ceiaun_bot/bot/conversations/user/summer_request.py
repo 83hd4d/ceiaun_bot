@@ -2,7 +2,6 @@ import logging
 
 from telegram import Update
 
-import settings
 from bot import consts, inline_keyboards, keyboards, messages
 from bot.consts import SUMMER_REQUEST_COURSES
 from bot.context import CustomContext
@@ -15,7 +14,7 @@ bad_request_logger = logging.getLogger("bad_request_log")
 async def summer_request_handler(update: Update, context: CustomContext):
     query = update.callback_query
 
-    if query.data == inline_keyboards.SUMMER_REQUEST_BACK_QUERY or settings.SUMMER_REQUEST_CLOSE:
+    if query.data == inline_keyboards.SUMMER_REQUEST_BACK_QUERY or not context.flags["REQUEST_SUMMER_OPEN"]:
         await query.answer()
         await query.edit_message_text(text=messages.SUMMER_REQ_CANCELED)
         await context.bot.send_message(

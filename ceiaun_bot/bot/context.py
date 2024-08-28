@@ -3,6 +3,7 @@ from typing import Optional
 from telegram.ext import CallbackContext, ExtBot
 
 from bot import consts
+from bot.types import FlagDict
 
 
 class CustomContext(CallbackContext[ExtBot, dict, dict, dict]):
@@ -33,6 +34,19 @@ class CustomContext(CallbackContext[ExtBot, dict, dict, dict]):
     @summer_request_list.setter
     def summer_request_list(self, value: list) -> None:
         self.bot_data["summer_request_list"] = value
+
+    @property
+    def flags(self) -> FlagDict:
+        if "flags" not in self.bot_data or not self.bot_data["flags"]:
+            self.bot_data["flags"] = FlagDict(
+                REQUEST_OPEN=False,
+                REQUEST_SUMMER_OPEN=False,
+            )
+
+        return self.bot_data["flags"]
+
+    def set_flag(self, flag_key: str, value: bool) -> None:
+        self.bot_data["flags"][flag_key] = value
 
     @property
     def user_state(self) -> int:
