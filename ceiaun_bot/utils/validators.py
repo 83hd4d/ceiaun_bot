@@ -19,7 +19,7 @@ def clean_student_id(student_id):
     if len(student_id) == 10:
         raise ValueError(messages.REQ_ERROR_STUDENT_ID_CODE_MELLI, "REQ_ERROR_STUDENT_ID_CODE_MELLI")
 
-    if len(student_id) not in [8, 11, 14]:
+    if len(student_id) not in [8, 9, 11, 14]:
         raise ValueError(messages.REQ_ERROR_STUDENT_ID, "REQ_ERROR_STUDENT_ID")
 
 

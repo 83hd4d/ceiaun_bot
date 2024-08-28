@@ -11,7 +11,8 @@ STATE_HOME, STATE_REQUEST_COURSE, STATE_CONVERT_COURSE, STATE_SUMMER_REQUEST, ST
     STATE_ADMIN_SUMMER_REQUEST,
     STATE_ADMIN_CLEAN_SUMMER_REQUEST,
     STATE_ADMIN_SEND_MSG_TO_ALL,
-) = range(100, 108)
+    STATE_ADMIN_STATUS,
+) = range(100, 109)
 
 PERCENT_REPLACE = (
     (" ", "%"),
@@ -54,6 +55,9 @@ SUMMER_REQUEST_COURSES = [
     SummerCourse(4, "ریاضیات گسسته"),
     SummerCourse(5, "کارگاه کامپیوتر"),
     SummerCourse(6, "مدار الکتریکی"),
+    SummerCourse(7, "ساختمان داده"),
+    SummerCourse(8, "آز ریزپردازنده"),
+    SummerCourse(9, "آز مدار منطقی و معماری"),
 ]
 
 ACCEPT_OK = "✅"

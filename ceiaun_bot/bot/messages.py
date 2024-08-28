@@ -140,3 +140,5 @@ ADMIN_SEND_MSG_TEMPLATE = """📍<b>پیام ادمین</b>
 
 {message}"""
 ADMIN_SEND_MSH_TO_ALL = "پیام خود را ارسال کنید."
+ADMIN_STATUS = "وضعیت ها:"
+ADMIN_STATUS_CLOSED = "پنل وضعیت بسته شد!"
